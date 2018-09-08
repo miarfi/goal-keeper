@@ -3,21 +3,11 @@
 
       <div class="row">
       
-      	 <div class="col-lg-3">
+      	 <div class="col-md-3">
       	 	<%@include file="./shared/sidebar.jsp" %>
       	 </div>
 
-        <!-- <div class="col-lg-3">
-          <h1 class="my-4">Shop Name</h1>
-          <div class="list-group">
-            <a href="#" class="list-group-item active">Category 1</a>
-            <a href="#" class="list-group-item">Category 2</a>
-            <a href="#" class="list-group-item">Category 3</a>
-          </div>
-        </div> -->
-        <!-- /.col-lg-3 -->
-
-        <div class="col-lg-9">
+        <div class="col-md-9">
 
           <div class="card mt-4">
             <img class="card-img-top img-fluid" src="http://placehold.it/900x400" alt="">
