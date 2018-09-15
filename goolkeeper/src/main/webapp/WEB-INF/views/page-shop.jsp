@@ -22,6 +22,7 @@
     <title>Online Shopping - ${title}</title>
     <script>
     	window.menu = '${title}';
+    	window.contextRoot = '${contextRoot}';
     </script>
 
     <!-- Bootstrap lux Theme -->
@@ -30,6 +31,10 @@
     <!-- Bootstrap core CSS -->
     <link href="${css}/bootstrap-lux-theme.css" rel="stylesheet">
     
+    <!-- Bootstrap datatables -->
+    <link href="${css}/dataTables.bootstrap.css" rel="stylesheet">
+    
+        
     <!-- Custom styles for this template -->
     <link href="${css}/myapp.css" rel="stylesheet">
 
@@ -61,11 +66,16 @@
 	     	<%@include file="contact.jsp" %>
 	     </c:if>     
 	     
-	      <!-- Load de contact content -->
+	      <!-- Load de products content -->
 	     <c:if test="${userClickAllProducts == true  or userClickCategoryProducts == true }">
 	     	<%@include file="listProducts.jsp" %>
 	     </c:if>
-	     	     
+
+	      <!-- Load de single product content -->
+	     <c:if test="${userClickShowSingleProduct == true  }">
+	     	<%@include file="singleProduct.jsp" %>
+	     </c:if>
+	     	     	     
 	</div>
 
     <!-- Footer -->
@@ -74,7 +84,8 @@
     <!-- Bootstrap core JavaScript -->
     <script src="${js}/jquery.min.js"></script>
     <script src="${js}/bootstrap.bundle.min.js"></script>
-
+    <script src="${js}/jquery.dataTables.js"></script>
+    <script src="${js}/dataTables.bootstrap.js"></script>
 	<script src="${js}/myapp.js"></script>
   
   	</div>

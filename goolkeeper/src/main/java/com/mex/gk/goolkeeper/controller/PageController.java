@@ -1,5 +1,7 @@
 package com.mex.gk.goolkeeper.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,13 +10,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mex.gk.goalkeepbackend.dao.CategoryDAO;
+import com.mex.gk.goalkeepbackend.dao.ProductDAO;
 import com.mex.gk.goalkeepbackend.dto.Category;
+import com.mex.gk.goalkeepbackend.dto.Product;
 
 @Controller
 public class PageController {
 
+	private static final Logger logger = LoggerFactory.getLogger(PageController.class);
 	@Autowired
 	private CategoryDAO categoryDAO;
+	
+	@Autowired
+	private ProductDAO productDAO;
 	
 	@RequestMapping(value = {"/","/index"})
 	public ModelAndView index(){
@@ -50,7 +58,8 @@ public class PageController {
 	
 	@RequestMapping(value = {"/home"})
 	public ModelAndView home(){
-		
+		logger.info("Inside PageController home method");
+		logger.debug("Inside PageController home method");
 		ModelAndView mv = new ModelAndView("page-shop");
 		mv.addObject("title", "Home");
 		mv.addObject("userClickHome", true);
@@ -97,6 +106,7 @@ public class PageController {
 		//categoryDAO to fetch a single category
 		Category category = null;
 		category = categoryDAO.get(id);
+		//System.out.println("category: "+category.getName());
 				
 		ModelAndView mv = new ModelAndView("page-shop");
 		mv.addObject("title",category.getName());
@@ -106,4 +116,21 @@ public class PageController {
 		mv.addObject("category", category);
 		return mv;
 	}
+	
+	@RequestMapping(value = {"/show/{id}/product"})
+	public ModelAndView showSimgleProduct(@PathVariable("id")int id){
+		
+		//categoryDAO to fetch a single category
+		Product product = null;
+		product = productDAO.get(id);
+		
+		product.setViews(product.getViews()+1);
+		productDAO.update(product);	
+				
+		ModelAndView mv = new ModelAndView("page-shop");
+		mv.addObject("title",product.getName());
+		mv.addObject("userClickShowSingleProduct", true);		
+		mv.addObject("product", product);
+		return mv;
+	}	
 }
