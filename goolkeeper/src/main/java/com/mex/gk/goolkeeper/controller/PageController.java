@@ -1,7 +1,7 @@
 package com.mex.gk.goolkeeper.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,11 +13,12 @@ import com.mex.gk.goalkeepbackend.dao.CategoryDAO;
 import com.mex.gk.goalkeepbackend.dao.ProductDAO;
 import com.mex.gk.goalkeepbackend.dto.Category;
 import com.mex.gk.goalkeepbackend.dto.Product;
+import com.mex.gk.goolkeeper.exception.ProductNotFoundException;
 
 @Controller
 public class PageController {
 
-	private static final Logger logger = LoggerFactory.getLogger(PageController.class);
+	//private static final Logger logger = LoggerFactory.getLogger(PageController.class);
 	@Autowired
 	private CategoryDAO categoryDAO;
 	
@@ -58,8 +59,8 @@ public class PageController {
 	
 	@RequestMapping(value = {"/home"})
 	public ModelAndView home(){
-		logger.info("Inside PageController home method");
-		logger.debug("Inside PageController home method");
+		//logger.info("Inside PageController home method");
+		//logger.debug("Inside PageController home method");
 		ModelAndView mv = new ModelAndView("page-shop");
 		mv.addObject("title", "Home");
 		mv.addObject("userClickHome", true);
@@ -118,11 +119,16 @@ public class PageController {
 	}
 	
 	@RequestMapping(value = {"/show/{id}/product"})
-	public ModelAndView showSimgleProduct(@PathVariable("id")int id){
+	public ModelAndView showSimgleProduct(@PathVariable("id")int id) throws ProductNotFoundException{
 		
 		//categoryDAO to fetch a single category
 		Product product = null;
 		product = productDAO.get(id);
+		
+		if (product == null) {
+			throw new ProductNotFoundException();
+			
+		}
 		
 		product.setViews(product.getViews()+1);
 		productDAO.update(product);	

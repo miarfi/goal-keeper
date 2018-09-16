@@ -28,6 +28,16 @@ public class ProductTestCase {
 		productDAO = (ProductDAO)context.getBean("productDAO");
 	}
 	
+	
+	@Test
+	public void testUpdateProduct() {
+	// reading and updating the category
+			product = productDAO.get(2);
+			product.setQuantity(0);
+			assertEquals("Something went wrong while updating the existing record!",
+					true,productDAO.update(product));	
+	}
+	
 /*	@Test
 	public void testCRUDProduct() {
 		
@@ -61,7 +71,7 @@ public class ProductTestCase {
 				
 	}
 		*/	
-	
+	/*
 	@Test
 	public void testListActiveProducts() {
 		assertEquals("Something went wrong while fetching the list of products!",
@@ -84,7 +94,7 @@ public class ProductTestCase {
 		
 	} 
 	
-	
+	*/
 	
 		
 }
