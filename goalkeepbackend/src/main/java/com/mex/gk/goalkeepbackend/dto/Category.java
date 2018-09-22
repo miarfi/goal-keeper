@@ -18,6 +18,11 @@ public class Category {
 	@Column(name="is_active")
 	private boolean active;
 
+	//Default Constructor
+	public Category() {
+		this.setActive(true);
+	}
+
 	public int getId() {
 		return id;
 	}
