@@ -201,6 +201,7 @@
 					<!--Modal Body -->
 					<div class="modal-body">
 						<sf:form 
+						id="categoryForm"
 						modelAttribute="category" 
 						action="${contextRoot}/manage/category" 
 						method="POST"
